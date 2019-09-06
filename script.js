@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OpenCoursesKeyBinds
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  adds keybinds to opencourses.uom.gr for easier video playing.
 // @author       georgtsiou@gmail.com
 // @match        http://opencourses.uom.gr/*
@@ -13,32 +13,8 @@
     const videoContainer = document.getElementById('vjs_video_4');
     const video = videoContainer.querySelector('video');
 
-    const keyPressed = (event) => {
-        if (!event.shiftKey) {
-            switch (event.key) {
-                case "ArrowRight":
-                    video.currentTime += 5;
-                    break;
-                case "ArrowLeft":
-                    video.currentTime -= 5;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if((event.key === " ") ||
-           (event.key === "k"))
-        {
-            if (video.paused) {
-                video.play();
-                return;
-            }
-            video.pause();
-            return;
-        }
-
-        switch (event.key) {
+    const isShiftCombination = function (key) {
+        switch (key) {
             case ">":
                 video.playbackRate += 0.1;
                 break;
@@ -47,6 +23,37 @@
                 break;
             default:
                 break;
+        }
+    }
+
+    const noCombination = function (key) {
+        switch (key) {
+            case "ArrowRight":
+                video.currentTime += 5;
+                break;
+            case "ArrowLeft":
+                video.currentTime -= 5;
+                break;
+            case " ":
+            case "k":
+                if (video.paused) {
+                    video.play();
+                    break;
+                }
+                video.pause();
+                break;
+            default:
+                break;
+        }
+    }
+
+    const keyPressed = function (event) {
+        const pressedKey = event.key;
+        if (event.shiftKey) {
+            isShiftCombination(pressedKey);
+        }
+        else {
+            noCombination(pressedKey);
         }
     }
 
