@@ -13,7 +13,7 @@
     const videoContainer = document.getElementById('vjs_video_4');
     const video = videoContainer.querySelector('video');
 
-    const isShiftCombination = function (key) {
+    const isShiftCombination = (key) => {
         switch (key) {
             case ">":
                 video.playbackRate += 0.1;
@@ -26,7 +26,7 @@
         }
     }
 
-    const noCombination = function (key) {
+    const noCombination = (key) => {
         switch (key) {
             case "ArrowRight":
                 video.currentTime += 5;
@@ -34,6 +34,10 @@
             case "ArrowLeft":
                 video.currentTime -= 5;
                 break;
+            case "ArrowUp":
+                video.volume += 0.05;
+            case "ArrowDown":
+                video.volume -= 0.05;
             case " ":
             case "k":
                 if (video.paused) {
@@ -47,7 +51,7 @@
         }
     }
 
-    const keyPressed = function (event) {
+    const keyPressed = (event) => {
         const pressedKey = event.key;
         if (event.shiftKey) {
             isShiftCombination(pressedKey);
