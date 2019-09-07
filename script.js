@@ -35,10 +35,16 @@
                 video.currentTime -= 5;
                 break;
             case "ArrowUp":
-                video.volume += 0.05;
+                if (video.volume >= 0.95)
+                    video.volume = 1;
+                else
+                    video.volume += 0.05;
                 break;
             case "ArrowDown":
-                video.volume -= 0.05;
+                if (video.volume <= 0.05)
+                    video.volume = 0;
+                else
+                    video.volume -= 0.05;
                 break;
             case " ":
             case "k":
