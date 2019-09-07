@@ -36,8 +36,10 @@
                 break;
             case "ArrowUp":
                 video.volume += 0.05;
+                break;
             case "ArrowDown":
                 video.volume -= 0.05;
+                break;
             case " ":
             case "k":
                 if (video.paused) {
